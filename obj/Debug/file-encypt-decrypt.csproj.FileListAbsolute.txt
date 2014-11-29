@@ -1,1 +1,9 @@
 c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\bin\Debug\file-encypt-decrypt.exe.config
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\bin\Debug\file-encypt-decrypt.exe
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\bin\Debug\file-encypt-decrypt.pdb
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file-encypt-decrypt.csprojResolveAssemblyReference.cache
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file_encypt_decrypt.Form1.resources
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file_encypt_decrypt.Properties.Resources.resources
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file-encypt-decrypt.csproj.GenerateResource.Cache
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file-encypt-decrypt.exe
+c:\users\alex\documents\visual studio 2013\Projects\file-encypt-decrypt\obj\Debug\file-encypt-decrypt.pdb

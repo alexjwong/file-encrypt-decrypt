@@ -16,5 +16,10 @@ namespace file_encypt_decrypt
         {
             InitializeComponent();
         }
+
+        private void KeyTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
