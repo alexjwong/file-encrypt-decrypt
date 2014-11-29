@@ -63,80 +63,106 @@ namespace file_encypt_decrypt
         
         private void EncryptFile()
         {
-            // Generate variables needed to encrypt from user entry
-            string inName = this.FilePath;
-            string outName = this.FilePath + ".des";
-            byte[] desKey = this.keytoByteArray();
-            byte[] desIV = this.keytoByteArray();
-
-            //Create the file streams to handle the input and output files.
-            FileStream fin = new FileStream(inName, FileMode.Open, FileAccess.Read);
-            FileStream fout = new FileStream(outName, FileMode.OpenOrCreate, FileAccess.Write);
-            fout.SetLength(0);
-
-            //Create variables to help with read and write. 
-            byte[] bin = new byte[100];     //This is intermediate storage for the encryption. 
-            long rdlen = 0;                 //This is the total number of bytes written. 
-            long totlen = fin.Length;       //This is the total length of the input file. 
-            int len;                        //This is the number of bytes to be written at a time.
-
-            DES des = new DESCryptoServiceProvider();
-            CryptoStream encStream = new CryptoStream(fout, des.CreateEncryptor(desKey, desIV), CryptoStreamMode.Write);
-
-            Console.WriteLine("Encrypting...");
-
-            //Read from the input file, then encrypt and write to the output file. 
-            while (rdlen < totlen)
+            try
             {
-                len = fin.Read(bin, 0, 100);
-                encStream.Write(bin, 0, len);
-                rdlen = rdlen + len;
-                Console.WriteLine("{0} bytes processed", rdlen);
-            }
+                // Generate variables needed to encrypt from user entry
+                string inName = this.FilePath;
+                string outName = this.FilePath + ".des";
+                byte[] desKey = this.keytoByteArray();
+                byte[] desIV = this.keytoByteArray();
 
-            Console.WriteLine("Encryption complete.");
-            encStream.Close();
-            fout.Close();
-            fin.Close();   
+                //Create the file streams to handle the input and output files.
+                FileStream fin = new FileStream(inName, FileMode.Open, FileAccess.Read);
+                FileStream fout = new FileStream(outName, FileMode.OpenOrCreate, FileAccess.Write);
+                fout.SetLength(0);
+
+                //Create variables to help with read and write. 
+                byte[] bin = new byte[100];     //This is intermediate storage for the encryption. 
+                long rdlen = 0;                 //This is the total number of bytes written. 
+                long totlen = fin.Length;       //This is the total length of the input file. 
+                int len;                        //This is the number of bytes to be written at a time.
+
+                DES des = new DESCryptoServiceProvider();
+                CryptoStream encStream = new CryptoStream(fout, des.CreateEncryptor(desKey, desIV), CryptoStreamMode.Write);
+
+                Console.WriteLine("Encrypting...");
+
+                //Read from the input file, then encrypt and write to the output file. 
+                while (rdlen < totlen)
+                {
+                    len = fin.Read(bin, 0, 100);
+                    encStream.Write(bin, 0, len);
+                    rdlen = rdlen + len;
+                    Console.WriteLine("{0} bytes processed", rdlen);
+                }
+
+                Console.WriteLine("Encryption complete.");
+                encStream.Close();
+                fout.Close();
+                fin.Close(); 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+            }
         }
 
         private void DecryptFile()
         {
-            // Generate variables needed to encrypt from user entry
-            string inName = this.FilePath;
-            string outName = this.FilePath.Remove(FilePath.Length - 3);  // Remove ".des"
-            byte[] desKey = this.keytoByteArray();
-            byte[] desIV = this.keytoByteArray();
-
-            //Create the file streams to handle the input and output files.
-            FileStream fin = new FileStream(inName, FileMode.Open, FileAccess.Read);
-            FileStream fout = new FileStream(outName, FileMode.OpenOrCreate, FileAccess.Write);
-            fout.SetLength(0);
-
-            //Create variables to help with read and write. 
-            byte[] bin = new byte[100];     //This is intermediate storage for the encryption. 
-            long rdlen = 0;                 //This is the total number of bytes written. 
-            long totlen = fin.Length;       //This is the total length of the input file. 
-            int len;                        //This is the number of bytes to be written at a time.
-
-            DES des = new DESCryptoServiceProvider();
-            CryptoStream decStream = new CryptoStream(fout, des.CreateDecryptor(desKey, desIV), CryptoStreamMode.Write);
-
-            Console.WriteLine("Decrypting...");
-
-            //Read from the input file, then encrypt and write to the output file. 
-            while (rdlen < totlen)
+            try
             {
-                len = fin.Read(bin, 0, 100);
-                decStream.Write(bin, 0, len);
-                rdlen = rdlen + len;
-                Console.WriteLine("{0} bytes processed", rdlen);
-            }
+                // Generate variables needed to encrypt from user entry
+                string inName = this.FilePath;
+                if (Path.GetExtension(inName) != ".des")
+                {
+                    throw new Exception("Not a .des file.");
+                }
+                string outName = Path.GetFileNameWithoutExtension(FilePath);  // Remove ".des" extension
+                byte[] desKey = this.keytoByteArray();
+                byte[] desIV = this.keytoByteArray();
 
-            Console.WriteLine("Decryption complete.");
-            decStream.Close();
-            fout.Close();
-            fin.Close();   
+                //Create the file streams to handle the input and output files.
+                FileStream fin = new FileStream(inName, FileMode.Open, FileAccess.Read);
+                FileStream fout = new FileStream(outName, FileMode.OpenOrCreate, FileAccess.Write);
+                fout.SetLength(0);
+
+                //Create variables to help with read and write. 
+                byte[] bin = new byte[100];     //This is intermediate storage for the encryption. 
+                long rdlen = 0;                 //This is the total number of bytes written. 
+                long totlen = fin.Length;       //This is the total length of the input file. 
+                int len;                        //This is the number of bytes to be written at a time.
+
+                DES des = new DESCryptoServiceProvider();
+                CryptoStream decStream = new CryptoStream(fout, des.CreateDecryptor(desKey, desIV), CryptoStreamMode.Write);
+
+                Console.WriteLine("Decrypting...");
+
+                //Read from the input file, then encrypt and write to the output file. 
+                while (rdlen < totlen)
+                {
+                    len = fin.Read(bin, 0, 100);
+                    decStream.Write(bin, 0, len);
+                    rdlen = rdlen + len;
+                    Console.WriteLine("{0} bytes processed", rdlen);
+                }
+
+                Console.WriteLine("Decryption complete.");
+                decStream.Close();
+                fout.Close();
+                fin.Close();   
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error,
+                    MessageBoxDefaultButton.Button1);
+            }
         }
 
         private byte[] keytoByteArray()
