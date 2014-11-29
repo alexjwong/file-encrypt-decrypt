@@ -36,6 +36,7 @@
             this.EncryptButton = new System.Windows.Forms.Button();
             this.DecryptButton = new System.Windows.Forms.Button();
             this.OpenFileButton = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // FileTextBox
@@ -44,6 +45,7 @@
             this.FileTextBox.Name = "FileTextBox";
             this.FileTextBox.Size = new System.Drawing.Size(247, 20);
             this.FileTextBox.TabIndex = 0;
+            this.FileTextBox.TextChanged += new System.EventHandler(this.FileTextBox_TextChanged);
             // 
             // KeyTextBox
             // 
@@ -79,6 +81,7 @@
             this.EncryptButton.TabIndex = 4;
             this.EncryptButton.Text = "Encrypt";
             this.EncryptButton.UseVisualStyleBackColor = true;
+            this.EncryptButton.Click += new System.EventHandler(this.EncryptButton_Click);
             // 
             // DecryptButton
             // 
@@ -88,6 +91,7 @@
             this.DecryptButton.TabIndex = 5;
             this.DecryptButton.Text = "Decrypt";
             this.DecryptButton.UseVisualStyleBackColor = true;
+            this.DecryptButton.Click += new System.EventHandler(this.DecryptButton_Click);
             // 
             // OpenFileButton
             // 
@@ -97,6 +101,11 @@
             this.OpenFileButton.Size = new System.Drawing.Size(37, 35);
             this.OpenFileButton.TabIndex = 6;
             this.OpenFileButton.UseVisualStyleBackColor = true;
+            this.OpenFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -126,6 +135,7 @@
         private System.Windows.Forms.Button EncryptButton;
         private System.Windows.Forms.Button DecryptButton;
         private System.Windows.Forms.Button OpenFileButton;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
