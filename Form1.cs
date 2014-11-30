@@ -68,6 +68,10 @@ namespace file_encypt_decrypt
                 // Generate variables needed to encrypt from user entry
                 string inName = this.FilePath;
                 string outName = this.FilePath + ".des";
+                if (this.KeyTextBox.Text == "")   // Check for empty key
+                {
+                    throw new Exception("Please enter a key.");
+                }
                 byte[] desKey = this.keytoByteArray();
                 byte[] desIV = this.keytoByteArray();
 
@@ -103,11 +107,30 @@ namespace file_encypt_decrypt
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1);
+                if (e is System.IO.FileNotFoundException)
+                {
+                    MessageBox.Show("Could not open source or destination file",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
+                else if (e is System.Security.Cryptography.CryptographicException)
+                {
+                    MessageBox.Show("Bad key or file.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
+                else // Manually thrown exception or exception not explicitly handled
+                {
+                    MessageBox.Show(e.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
             }
         }
 
@@ -122,6 +145,10 @@ namespace file_encypt_decrypt
                     throw new Exception("Not a .des file.");
                 }
                 string outName = Path.GetFileNameWithoutExtension(FilePath);  // Remove ".des" extension
+                if (this.KeyTextBox.Text == "") // Check for empty key
+                {
+                    throw new Exception("Please enter a key.");
+                }
                 byte[] desKey = this.keytoByteArray();
                 byte[] desIV = this.keytoByteArray();
 
@@ -157,11 +184,30 @@ namespace file_encypt_decrypt
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message,
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error,
-                    MessageBoxDefaultButton.Button1);
+                if (e is System.IO.FileNotFoundException)
+                {
+                    MessageBox.Show("Could not open source or destination file",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
+                else if (e is System.Security.Cryptography.CryptographicException)
+                {
+                    MessageBox.Show("Bad key or file.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
+                else // Manually thrown exception or exception not explicitly handled
+                {
+                    MessageBox.Show(e.Message,
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error,
+                        MessageBoxDefaultButton.Button1);
+                }
             }
         }
 
@@ -189,6 +235,5 @@ namespace file_encypt_decrypt
 
             return KeyArray;
         }
-
     }
 }
